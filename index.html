@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Siddharth Balraj — Aerospace Engineering</title>
+<meta name="description" content="Aerospace engineering projects in systems modeling, aircraft design, propulsion, and CFD.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* Layout: single measured column; figures break wider than the text block. */
+:root{
+  --bg:#f6f7f9;
+  --surface:#ffffff;
+  --ink:#15181d;
+  --ink-soft:#4a525e;
+  --rule:#d8dce3;
+  --accent:#1d5b8f;
+  --accent-soft:#e8eef5;
+  --font-display:'Archivo','Helvetica Neue',Arial,sans-serif;
+  --font-body:'Source Sans 3','Helvetica Neue',Arial,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#101318;
+    --surface:#171b22;
+    --ink:#e7eaef;
+    --ink-soft:#9aa4b2;
+    --rule:#2a303a;
+    --accent:#6fb2e8;
+    --accent-soft:#1a2733;
+    color-scheme:dark;
+  }
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:17px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1000px;margin:0 auto;padding-inline:24px}
+a{color:var(--accent)}
+
+/* ---------- top bar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:20;
+  background:color-mix(in srgb,var(--bg) 92%,transparent);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule);
+}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px;flex-wrap:wrap}
+.mark{font-family:var(--font-display);font-weight:700;letter-spacing:-.01em;font-size:1rem}
+.topnav{display:flex;gap:18px;flex-wrap:wrap;font-family:var(--font-mono);font-size:.76rem;letter-spacing:.04em;text-transform:uppercase}
+.topnav a{color:var(--ink-soft);text-decoration:none}
+.topnav a:hover,.topnav a:focus-visible{color:var(--accent)}
+
+/* ---------- header ---------- */
+header.intro{padding-block:56px 40px;border-bottom:1px solid var(--rule)}
+h1{
+  font-family:var(--font-display);font-weight:700;
+  font-size:clamp(2.1rem,5.5vw,3.1rem);line-height:1.08;
+  letter-spacing:-.02em;margin:0 0 14px;text-wrap:balance;
+}
+.lede{max-width:62ch;font-size:1.08rem;color:var(--ink-soft);margin:0 0 22px}
+.lede strong{color:var(--ink);font-weight:600}
+.contact{display:flex;gap:10px 22px;flex-wrap:wrap;font-family:var(--font-mono);font-size:.82rem}
+.contact a{text-decoration:none;border-bottom:1px solid var(--rule);padding-bottom:1px}
+.contact a:hover{border-color:var(--accent)}
+
+/* ---------- projects ---------- */
+.project{padding-block:52px;border-bottom:1px solid var(--rule)}
+.eyebrow{
+  font-family:var(--font-mono);font-size:.74rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--accent);margin:0 0 10px;
+}
+.project h2{
+  font-family:var(--font-display);font-weight:600;
+  font-size:clamp(1.45rem,3.4vw,1.95rem);line-height:1.15;
+  letter-spacing:-.015em;margin:0 0 14px;text-wrap:balance;max-width:24ch;
+}
+.project p.desc{max-width:68ch;margin:0 0 10px;color:var(--ink-soft)}
+.project p.desc strong{color:var(--ink);font-weight:600}
+.tools{
+  display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 0;padding:0;list-style:none;
+  font-family:var(--font-mono);font-size:.74rem;
+}
+.tools li{
+  border:1px solid var(--rule);border-radius:2px;
+  padding:3px 8px;color:var(--ink-soft);background:var(--surface);
+}
+
+/* ---------- figures ---------- */
+.figs{display:grid;gap:16px;margin:28px 0 0;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+figure{margin:0;min-width:0}
+figure img{
+  display:block;width:100%;height:auto;max-width:100%;
+  border:1px solid var(--rule);border-radius:3px;background:var(--surface);
+}
+figure figcaption{
+  font-family:var(--font-mono);font-size:.74rem;line-height:1.45;
+  color:var(--ink-soft);margin-top:8px;
+}
+/* slot shown until the real image file exists */
+figure.empty img{display:none}
+figure.empty .slot{display:flex}
+.slot{
+  display:none;align-items:center;justify-content:center;text-align:center;
+  aspect-ratio:4/3;border:1px dashed var(--rule);border-radius:3px;
+  background:var(--accent-soft);color:var(--ink-soft);
+  font-family:var(--font-mono);font-size:.72rem;line-height:1.5;padding:16px;
+  word-break:break-word;
+}
+
+/* ---------- document viewer ---------- */
+.doc{margin-top:30px;border:1px solid var(--rule);border-radius:4px;background:var(--surface);overflow:hidden}
+.doc-head{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  padding:12px 16px;border-bottom:1px solid var(--rule);
+}
+.doc-title{font-family:var(--font-mono);font-size:.78rem;color:var(--ink-soft)}
+.doc-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{
+  font-family:var(--font-mono);font-size:.74rem;letter-spacing:.03em;
+  text-decoration:none;color:var(--accent);
+  border:1px solid var(--accent);border-radius:2px;padding:5px 11px;
+  background:transparent;cursor:pointer;
+}
+.btn:hover,.btn:focus-visible{background:var(--accent);color:var(--surface)}
+.doc iframe{display:block;width:100%;height:640px;border:0;background:var(--surface)}
+.doc .fallback{
+  display:none;padding:22px 16px;font-family:var(--font-mono);
+  font-size:.78rem;color:var(--ink-soft);line-height:1.6;
+}
+@media (max-width:700px){
+  .doc iframe{display:none}
+  .doc .fallback{display:block}
+}
+/* document not in place yet */
+.doc.empty iframe{display:none}
+.doc.empty .fallback{display:none}
+.doc.empty .doc-actions{display:none}
+.doc .pending{
+  display:none;padding:26px 16px;text-align:center;
+  background:var(--accent-soft);border-top:1px dashed var(--rule);
+  font-family:var(--font-mono);font-size:.74rem;line-height:1.6;color:var(--ink-soft);
+  word-break:break-word;
+}
+.doc.empty .pending{display:block}
+
+/* ---------- compact items ---------- */
+.minor{display:grid;gap:30px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:26px}
+.minor h3{font-family:var(--font-display);font-weight:600;font-size:1.05rem;margin:0 0 6px}
+.minor p{margin:0 0 8px;color:var(--ink-soft);font-size:.96rem}
+
+footer{padding-block:40px 60px;font-family:var(--font-mono);font-size:.76rem;color:var(--ink-soft)}
+
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="mark">Siddharth Balraj</span>
+    <nav class="topnav">
+      <a href="#flare">Flare Control</a>
+      <a href="#airliner">Airliner</a>
+      <a href="#cca">CCA</a>
+      <a href="#other">Other Work</a>
+      <a href="docs/resume.pdf">Resume</a>
+    </nav>
+  </div>
+</div>
+
+<header class="intro">
+  <div class="wrap">
+    <h1>Aerospace engineering, from requirements to converged design.</h1>
+    <p class="lede">I'm a <strong>BS/MS aerospace engineering student at Georgia Tech</strong>, finishing my bachelor's in December 2026 and starting my master's in January. My work sits where system-level modeling meets detailed analysis — executable requirements models, conceptual aircraft design, propulsion and combustion CFD, and the tooling that makes all of it run faster.</p>
+    <p class="contact">
+      <a href="mailto:siddbalraj04@gmail.com">siddbalraj04@gmail.com</a>
+      <a href="docs/resume.pdf">Resume (PDF)</a>
+      <a href="https://www.linkedin.com/in/siddharth-balraj-816344265/">LinkedIn</a>
+    </p>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ PROJECT 1 ============ -->
+<section class="project" id="flare">
+  <div class="wrap">
+    <p class="eyebrow">Aerospace Systems Design Laboratory · Georgia Tech · 2026</p>
+    <h2>Automated Aircraft Landing Flare Control System</h2>
+
+    <p class="desc">I defined this research project and set its requirements, then built the entire system as an <strong>executable SysML v2 model</strong> in CATIA Magic, holding requirements, architecture, and behavior in one place. The controller is an <strong>LQI design on a linearized four-state longitudinal model</strong> in MATLAB/Simulink, tracking an altitude-scheduled sink-rate reference through touchdown.</p>
+    <p class="desc">Linking the SysML model to MATLAB through calculation definitions means one click runs the closed-loop simulation and reports whether each of the six touchdown safety and performance requirements is met. I ran the model across aircraft spanning a <strong>140:1 mass range</strong>, with failure cases flagged automatically.</p>
+
+    <ul class="tools">
+      <li>SysML v2</li><li>CATIA Magic</li><li>MATLAB</li><li>Simulink</li><li>LQI control</li><li>MBSE</li>
+    </ul>
+
+    <div class="figs">
+      <figure>
+        <img src="images/flare-requirements.png" alt="Requirements view of the landing flare control system in SysML v2">
+        <div class="slot">images/flare-requirements.png<br>Requirements view</div>
+        <figcaption>Fig. 1 — The six touchdown safety and performance requirements, held in the system model.</figcaption>
+      </figure>
+      <figure>
+        <img src="images/flare-simulink.png" alt="Simulink model of the closed-loop flare controller">
+        <div class="slot">images/flare-simulink.png<br>Simulink model</div>
+        <figcaption>Fig. 2 — Closed-loop Simulink model: LQI controller on the linearized four-state longitudinal plant.</figcaption>
+      </figure>
+      <figure>
+        <img src="images/flare-verification.png" alt="Requirement verification results showing pass and fail per requirement">
+        <div class="slot">images/flare-verification.png<br>Verification results</div>
+        <figcaption>Fig. 3 — Verification after one run: each requirement resolves true or false automatically.</figcaption>
+      </figure>
+    </div>
+
+    <div class="doc">
+      <div class="doc-head">
+        <span class="doc-title">Research report — ASDL</span>
+        <span class="doc-actions">
+          <a class="btn" href="docs/flare-report.pdf" target="_blank" rel="noopener">Open fullscreen</a>
+          <a class="btn" href="docs/flare-report.pdf" download>Download</a>
+        </span>
+      </div>
+      <iframe data-src="docs/flare-report.pdf#view=FitH" title="Landing flare control research report" loading="lazy"></iframe>
+      <p class="fallback">PDF preview is unavailable on small screens. Use Open fullscreen or Download above.</p>
+      <p class="pending"></p>
+    </div>
+
+    <div class="doc">
+      <div class="doc-head">
+        <span class="doc-title">Research presentation — ASDL</span>
+        <span class="doc-actions">
+          <a class="btn" href="docs/flare-presentation.pdf" target="_blank" rel="noopener">Open fullscreen</a>
+          <a class="btn" href="docs/flare-presentation.pdf" download>Download</a>
+        </span>
+      </div>
+      <iframe data-src="docs/flare-presentation.pdf#view=FitH" title="Landing flare control research presentation" loading="lazy"></iframe>
+      <p class="fallback">PDF preview is unavailable on small screens. Use Open fullscreen or Download above.</p>
+      <p class="pending"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECT 2 ============ -->
+<section class="project" id="airliner">
+  <div class="wrap">
+    <p class="eyebrow">AE 4311 Senior Aircraft Design I · Spring 2026</p>
+    <h2>Conceptual Design of a Middle-of-the-Market Airliner</h2>
+
+    <p class="desc">A complete conceptual design cycle, following Roskam's methodology, for a <strong>280-passenger, Mach 0.80 twin-turbofan airliner</strong> with a 3,500 nm design range, certified to FAR Part 25. I worked the problem end to end on my own: restructuring the mission specification into a requirements hierarchy, down-selecting among three configurations with a weighted Pugh matrix, and converging weight and constraint sizing across six flight conditions.</p>
+    <p class="desc">From there: cost estimation across production quantities, airfoil down-select from four candidates using XFLR5 lift curves and drag polars, 3D wing design and induced-drag analysis in AVL, fuselage and tail sizing in OpenVSP, and a full weight-and-balance study with CG envelope and landing gear placement. The converged design is documented in a <strong>60-page technical report</strong>.</p>
+
+    <ul class="tools">
+      <li>AVL</li><li>OpenVSP</li><li>XFLR5</li><li>Excel / VBA</li><li>Roskam method</li><li>Trade studies</li>
+    </ul>
+
+    <div class="figs">
+      <figure>
+        <img src="images/airliner-config.png" alt="Final airliner configuration rendered in OpenVSP">
+        <div class="slot">images/airliner-config.png<br>Final configuration</div>
+        <figcaption>Fig. 1 — Converged wing, fuselage, and tail configuration rendered in OpenVSP.</figcaption>
+      </figure>
+      <figure>
+        <img src="images/airliner-cg.png" alt="Top view of the aircraft showing center of gravity locations">
+        <div class="slot">images/airliner-cg.png<br>Top view, CG locations</div>
+        <figcaption>Fig. 2 — Top view with component and aircraft CG locations driving the balance study.</figcaption>
+      </figure>
+      <figure>
+        <img src="images/airliner-summary.png" alt="Table of final converged design values for the airliner">
+        <div class="slot">images/airliner-summary.png<br>Converged design values</div>
+        <figcaption>Fig. 3 — Final converged design state: weights, wing loading, thrust, and geometry.</figcaption>
+      </figure>
+    </div>
+
+    <div class="doc">
+      <div class="doc-head">
+        <span class="doc-title">Final report — 60 pages</span>
+        <span class="doc-actions">
+          <a class="btn" href="docs/aircraft-design-report.pdf" target="_blank" rel="noopener">Open fullscreen</a>
+          <a class="btn" href="docs/aircraft-design-report.pdf" download>Download</a>
+        </span>
+      </div>
+      <iframe data-src="docs/aircraft-design-report.pdf#view=FitH" title="Aircraft design final report" loading="lazy"></iframe>
+      <p class="fallback">PDF preview is unavailable on small screens. Use Open fullscreen or Download above.</p>
+      <p class="pending"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECT 3 ============ -->
+<section class="project" id="cca">
+  <div class="wrap">
+    <p class="eyebrow">AE 4312 Senior Aircraft Design II · Fall 2026 · In progress</p>
+    <h2>Collaborative Combat Aircraft</h2>
+
+    <p class="desc">A team conceptual design of an <strong>unmanned, attritable collaborative combat aircraft</strong> built to operate forward of crewed fighters in contested airspace: Mach 0.9, a 600 nm combat radius, and 500–2,000 lb of internal payload, sized to balance multi-mission versatility against unit cost.</p>
+    <p class="desc">My contribution so far is the <strong>Class I weight regression</strong>, built from 14 comparable aircraft — in-service CCAs, UCAV demonstrators, light attack jets, and subsonic trainers — compiled from Jane's. That empty-weight relationship sets the takeoff weight the rest of the sizing runs from. The team is currently evaluating six configurations modeled in OpenVSP against weighted figures of merit for cost, stealth, aerodynamic efficiency, and structural integrity.</p>
+
+    <ul class="tools">
+      <li>OpenVSP</li><li>Excel</li><li>Weight regression</li><li>Pugh matrix</li><li>Mission analysis</li>
+    </ul>
+
+    <p class="desc" style="margin-top:22px;font-family:var(--font-mono);font-size:.84rem">Final report and configuration renderings to be added in December 2026.</p>
+  </div>
+</section>
+
+<!-- ============ OTHER WORK ============ -->
+<section class="project" id="other">
+  <div class="wrap">
+    <p class="eyebrow">Additional projects</p>
+    <h2>Other Work</h2>
+
+    <div class="minor">
+      <div>
+        <h3>Computational Fluid Dynamics</h3>
+        <p>Undergraduate CFD research and coursework in ANSYS and Fluent. Modeled 3-D flow over an ONERA M6 wing in subsonic and transonic regimes, matching integrated lift and drag coefficients within 5% of test data. Induced normal shocks at three locations in a conical nozzle on a refined Pointwise grid, landing within 5% of hand calculations. Also studied non-Newtonian arterial flow and a vertical-axis wind turbine.</p>
+      </div>
+    </div>
+
+      </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    Siddharth Balraj · Aerospace Engineering, Georgia Institute of Technology ·
+    <a href="mailto:siddbalraj04@gmail.com">siddbalraj04@gmail.com</a>
+  </div>
+</footer>
+
+<script>
+// Show a labeled slot wherever an image file isn't in place yet.
+document.querySelectorAll('.figs figure img').forEach(function (img) {
+  function markEmpty() { img.closest('figure').classList.add('empty'); }
+  img.addEventListener('error', markEmpty);
+  if (img.complete && img.naturalWidth === 0) markEmpty();
+});
+
+// Load each PDF only if the file is actually there; otherwise show a slot.
+document.querySelectorAll('.doc').forEach(function (doc) {
+  var frame = doc.querySelector('iframe[data-src]');
+  if (!frame) return;
+  var src = frame.getAttribute('data-src');
+  var file = src.split('#')[0];
+  function markEmpty() {
+    doc.classList.add('empty');
+    var note = doc.querySelector('.pending');
+    if (note) note.textContent = 'Drop the PDF at ' + file + ' and it will appear here.';
+  }
+  fetch(file, { method: 'HEAD' })
+    .then(function (r) {
+      if (r.ok) { frame.src = src; } else { markEmpty(); }
+    })
+    .catch(markEmpty);
+});
+</script>
+
+</body>
+</html>
